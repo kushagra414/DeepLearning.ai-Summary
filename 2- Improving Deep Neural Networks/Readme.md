@@ -631,7 +631,7 @@ Implications of L2-regularization on:
     ```
     a_log = -3
     b_log = -1
-    r = (a_log - b_log) * np.random.rand() + b_log
+    r = (a_log - b_log) * np.random.rand()
     beta = 1 - 10^r   # because 1 - beta = 10^r
     ```
 

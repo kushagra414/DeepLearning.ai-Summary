@@ -397,8 +397,8 @@ Implications of L2-regularization on:
   ```
   for t = 1:No_of_batches                         # this is called an epoch
   	AL, caches = forward_prop(X{t}, Y{t})
-  	cost = compute_cost(AL, Y{t})
-  	grads = backward_prop(AL, caches)
+  	cost = compute_cost(A[L], Y{t})
+  	grads = backward_prop(A[L], caches)
   	update_parameters(grads)
   ```
 - The code inside an epoch should be vectorized.
@@ -509,6 +509,8 @@ Implications of L2-regularization on:
 - Momentum helps the cost function to go to the minimum point in a more fast and consistent way.
 - `beta` is another `hyperparameter`. `beta = 0.9` is very common and works very well in most cases.
 - In practice people don't bother implementing **bias correction**.
+Checkout this link to understand the topic fully:
+https://towardsdatascience.com/stochastic-gradient-descent-with-momentum-a84097641a5d
 
 ### RMSprop
 
@@ -559,7 +561,7 @@ Implications of L2-regularization on:
   	sdb = sdb / (1 - beta2^t)      # fixing bias
   					
   	W = W - learning_rate * vdW / (sqrt(sdW) + epsilon)
-  	b = B - learning_rate * vdb / (sqrt(sdb) + epsilon)
+  	b = b - learning_rate * vdb / (sqrt(sdb) + epsilon)
   ```
 - Hyperparameters for Adam:
   - Learning rate: needed to be tuned.
@@ -614,7 +616,11 @@ Implications of L2-regularization on:
 - These methods can be automated.
 
 ### Using an appropriate scale to pick hyperparameters
-
+- Let's look at another example. Say your searching for the hyperparameter alpha, the learning rate. And let's say that you suspect 0.0001 might be on the low end, or maybe it could be as high as 1. Now if you draw the number line from 0.0001 to 1, and sample values uniformly at random over this number line.
+- Well about 90% of the values you sample would be between 0.1 and 1. So you're using 90% of the resources to search between 0.1 and 1, and only 10% of the resources to search between 0.0001 and 0.1.
+- So that doesn't seem right.
+- Instead, it seems more reasonable to search for hyperparameters on a log scale. Where instead of using a linear scale, you'd have 0.0001 here, and then 0.001, 0.01, 0.1, and then 1.
+- And you instead sample uniformly, at random, on this type of logarithmic scale. Now you have more resources dedicated to searching between 0.0001 and 0.001, and between 0.001 and 0.01, and so on. So in Python, the way you implement this is let r = -4 * np.random.rand().
 - Let's say you have a specific range for a hyperparameter from "a" to "b". It's better to search for the right ones using the logarithmic scale rather then in linear scale:
   - Calculate: `a_log = log(a)  # e.g. a = 0.0001 then a_log = -4`
   - Calculate: `b_log = log(b)  # e.g. b = 1  then b_log = 0`
@@ -659,6 +665,7 @@ Implications of L2-regularization on:
   - Compute `variance = 1/m * sum((z[i] - mean)^2)`
   - Then `Z_norm[i] = (z[i] - mean) / np.sqrt(variance + epsilon)` (add `epsilon` for numerical stability if variance = 0)
     - Forcing the inputs to a distribution with zero mean and variance of 1.
+    - But different layers might belong to different distributions, so it does not make sense to make mean as 0 and variance as 1.
   - Then `Z_tilde[i] = gamma * Z_norm[i] + beta`
     - To make inputs belong to other distribution (with other mean and variance).
     - gamma and beta are learnable parameters of the model.

@@ -109,7 +109,7 @@ Here are the course summary as its given on the course [link](https://www.course
        - ![](Images/11.png)
      - For small data NN can perform as Linear regression or SVM (Support vector machine)
      - For big data a small NN is better that SVM
-     - For big data a big NN is better that a medium NN is better that small NN.
+     - For big data a big NN is better than a medium NN is better than small NN.
      - Hopefully we have a lot of data because the world is using the computer a little bit more
        - Mobiles
        - IOT (Internet of things)
@@ -244,8 +244,8 @@ Here are the course summary as its given on the course [link](https://www.course
   ```
   	d(a)  = d(l)/d(a) = -(y/a) + ((1-y)/(1-a))
   	d(z)  = d(l)/d(z) = a - y
-  	d(W1) = X1 * d(z)
-  	d(W2) = X2 * d(z)
+  	d(W1) = X1 * d(z)  # d(W1) = d(l)/d(W1) and d(z)  = d(l)/d(z)
+  	d(W2) = X2 * d(z)  # d(W2) = d(l)/d(W2) and d(z)  = d(l)/d(z)
   	d(B)  = d(z)
   ```
 
@@ -648,7 +648,7 @@ Here are the course summary as its given on the course [link](https://www.course
 - Pseudo  code for back propagation for layer l:
 
   ```
-  Input da[l], Caches
+  Input dA[l], Caches
   dZ[l] = dA[l] * g'[l](Z[l])
   dW[l] = (dZ[l]A[l-1].T) / m
   db[l] = sum(dZ[l])/m                # Dont forget axis=1, keepdims=True

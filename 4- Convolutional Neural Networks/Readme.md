@@ -852,7 +852,7 @@ Here is the course summary as given on the course [link](https://www.coursera.or
   3. Discard all boxes with `Pc < 0.6`  
   4. While there are any remaining boxes:
      1. Pick the box with the largest Pc Output that as a prediction.
-     2. Discard any remaining box with `IoU > 0.5` with that box output in the previous step i.e any box with high overlap(greater than overlap threshold of 0.5).
+     2. Discard any remaining box with `IoU < 0.5` with that box output in the previous step i.e any box with less overlap(less than overlap threshold of 0.5).
 - If there are multiple classes/object types `c` you want to detect, you should run the Non-max suppression `c` times, once for every output class.
 
 ### Anchor Boxes

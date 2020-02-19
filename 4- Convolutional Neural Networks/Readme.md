@@ -834,7 +834,7 @@ Here is the course summary as given on the course [link](https://www.coursera.or
 - For example:
   - ![](Images/25.png)
   - The red is the labeled output and the purple is the predicted output.
-  - To compute Intersection Over Union we first compute the union area of the two rectangles which is "the first rectangle + second rectangle" Then compute the intersection area between these two rectangles.
+  - To compute Intersection Over Union we first compute the union area of the two rectangles which is "the first rectangle + second rectangle"-"intersection area"(As it is included 2 times). Then compute the intersection area between these two rectangles.
   - Finally `IOU = intersection area / Union area`
 - If `IOU >=0.5` then its good. The best answer will be 1.
 - The higher the IOU the better is the accuracy.
